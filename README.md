@@ -37,7 +37,45 @@ KCP provides reliable, encrypted communication optimized for high-loss or unpred
 
 ## Getting Started
 
-### Prerequisites
+### Quick Installation (Recommended)
+
+The easiest way to install paqet is using our automated installation scripts.
+
+#### Linux/macOS
+
+```bash
+# Download and run the installation script
+curl -fsSL https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.sh | sudo bash
+
+# Or download first, then run:
+wget https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.sh
+chmod +x install.sh
+sudo ./install.sh
+```
+
+#### Windows
+
+```powershell
+# Download and run as Administrator in PowerShell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.ps1" -OutFile "install.ps1"
+.\install.ps1
+
+# Or in one line (run PowerShell as Administrator):
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.ps1'))
+```
+
+The installation script will:
+- Detect your OS and architecture automatically
+- Install required dependencies (libpcap/Npcap)
+- Download the latest paqet binary
+- Install example configuration files
+- Add paqet to your system PATH
+
+### Manual Installation
+
+If you prefer to install manually or the automated script doesn't work for your system:
+
+#### Prerequisites
 
 - `libpcap` development libraries must be installed on both the client and server machines.
   - **Debian/Ubuntu:** `sudo apt-get install libpcap-dev`
@@ -45,13 +83,13 @@ KCP provides reliable, encrypted communication optimized for high-loss or unpred
   - **macOS:** Comes pre-installed with Xcode Command Line Tools. Install with `xcode-select --install`
   - **Windows:** Install Npcap. Download from [npcap.com](https://npcap.com/).
 
-### 1. Download a Release
+#### 1. Download a Release
 
 Download the pre-compiled binary for your client and server operating systems from the project's **Releases page**.
 
 You will also need the configuration files from the `example/` directory.
 
-### 2. Configure the Connection
+#### 2. Configure the Connection
 
 paqet uses a unified configuration approach with role-based settings. Copy and modify either:
 
@@ -190,27 +228,31 @@ sudo iptables -t filter -A OUTPUT -p tcp --sport <PORT> -j ACCEPT
 
 These rules ensure that only the application handles traffic for the connection port.
 
-### 3. Run `paqet`
+#### 3. Run `paqet`
 
-Make the downloaded binary executable (`chmod +x ./paqet_linux_amd64`). You will need root privileges to use raw sockets.
+If you used the automated installer, paqet will be available globally. Otherwise, make the downloaded binary executable (`chmod +x ./paqet_linux_amd64`). You will need root privileges to use raw sockets.
 
 **On the Server:**
-_Place your server configuration file in the same directory as the binary and run:_
 
 ```bash
-# Make sure to use the binary name you downloaded for your server's OS/Arch.
+# If installed via script:
+sudo paqet run -c /etc/paqet/config.yaml
+
+# If manual installation, place your server configuration file in the same directory as the binary:
 sudo ./paqet_linux_amd64 run -c config.yaml
 ```
 
 **On the Client:**
-_Place your client configuration file in the same directory as the binary and run:_
 
 ```bash
-# Make sure to use the binary name you downloaded for your client's OS/Arch.
+# If installed via script:
+sudo paqet run -c /etc/paqet/config.yaml
+
+# If manual installation, place your client configuration file in the same directory as the binary:
 sudo ./paqet_darwin_arm64 run -c config.yaml
 ```
 
-### 4. Test the Connection
+#### 4. Test the Connection
 
 Once the client and server are running, test the SOCKS5 proxy:
 
@@ -327,6 +369,32 @@ Security depends entirely on proper key management. Use the `secret` command to 
     - **Cloud Provider Firewalls:** Ensure your cloud provider's security group allows TCP traffic on your `listen.addr` port.
     - **NAT/Port Configuration:** For servers, ensure `listen.addr` and `network.ipv4.addr` ports match. For clients, use port `0` in `network.ipv4.addr` for automatic port assignment to avoid conflicts.
 3.  **Use `ping` and `dump`:** Use `paqet ping -c config.yaml` to test the connection. Use `paqet dump -p <PORT>` on the server to see if packets are arriving.
+
+## Uninstallation
+
+To remove paqet from your system:
+
+### Linux/macOS
+
+```bash
+# Download and run the uninstallation script
+curl -fsSL https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/uninstall.sh | sudo bash
+
+# Or download first, then run:
+wget https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/uninstall.sh
+chmod +x uninstall.sh
+sudo ./uninstall.sh
+```
+
+### Windows
+
+```powershell
+# Download and run as Administrator in PowerShell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/uninstall.ps1" -OutFile "uninstall.ps1"
+.\uninstall.ps1
+```
+
+The uninstall script will remove the binary and optionally remove configuration files. Note that libpcap/Npcap must be uninstalled manually if no longer needed.
 
 ## Acknowledgments
 
