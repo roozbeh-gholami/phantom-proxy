@@ -55,14 +55,21 @@ sudo ./install.sh
 
 #### Windows
 
+> **⚠️ Important:** Right-click PowerShell and select **"Run as Administrator"** before running these commands.
+
 ```powershell
-# Download and run as Administrator in PowerShell
+# Method 1: Download then run
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.ps1" -OutFile "install.ps1"
 .\install.ps1
 
-# Or in one line (run PowerShell as Administrator):
+# Method 2: One-line installation
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/install.ps1'))
 ```
+
+**If you see "ScriptRequiresElevation" error:**
+- Close PowerShell
+- Right-click PowerShell icon → **Run as Administrator**
+- Run the installation command again
 
 The installation script will:
 - Detect your OS and architecture automatically
