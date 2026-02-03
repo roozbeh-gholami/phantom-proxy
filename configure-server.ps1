@@ -10,15 +10,15 @@ $ErrorActionPreference = "Stop"
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Blue
+    Write-Host "=============================================================" -ForegroundColor Blue
     Write-Host $Message -ForegroundColor Green
-    Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Blue
+    Write-Host "=============================================================" -ForegroundColor Blue
 }
 
 function Write-Step {
     param([string]$Message)
     Write-Host ""
-    Write-Host "â–¶ $Message" -ForegroundColor Blue
+    Write-Host "► $Message" -ForegroundColor Blue
 }
 
 function Write-Info {
