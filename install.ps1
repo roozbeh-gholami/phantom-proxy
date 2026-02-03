@@ -137,10 +137,8 @@ function Install-Binary {
     
     try {
         Invoke-WebRequest -Uri $downloadUrl -OutFile $tempFile
-    }
-    catch {
-        $errMsg = $_.Exception.Message
-        Write-Error "Failed to download binary: $errMsg"
+    } catch {
+        Write-Host "Failed to download binary: $($_.Exception.Message)" -ForegroundColor Red
         exit 1
     }
     
@@ -190,10 +188,8 @@ function Install-Configs {
             -OutFile "$ConfigDir\server.yaml.example"
         
         Write-Info "Example configurations installed to $ConfigDir"
-    }
-    catch {
-        $errMsg = $_.Exception.Message
-        Write-Warning "Failed to download example configurations: $errMsg"
+    } catch {
+        Write-Host "Failed to download example configurations: $($_.Exception.Message)" -ForegroundColor Yellow
     }
 }
 
@@ -269,9 +265,7 @@ function Main {
 # Run main function
 try {
     Main
-}
-catch {
-    $errMsg = $_.Exception.Message
-    Write-Error "Installation failed: $errMsg"
+} catch {
+    Write-Host "Installation failed: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 }
