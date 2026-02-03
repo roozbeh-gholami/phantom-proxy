@@ -52,7 +52,16 @@ function Get-LatestVersion {
         return $latestVersion
     }
     catch {
-        Write-Error "Failed to fetch latest version: $_"
+        Write-Error "No releases found in the repository."
+        Write-Host ""
+        Write-Host "Please create a release first or specify a version:" -ForegroundColor Yellow
+        Write-Host "  .\install.ps1 -Version v1.0.0" -ForegroundColor Cyan
+        Write-Host ""
+        Write-Host "Or install from source:" -ForegroundColor Yellow
+        Write-Host "  git clone https://github.com/$GithubRepo.git" -ForegroundColor Cyan
+        Write-Host "  cd phantom-proxy" -ForegroundColor Cyan
+        Write-Host "  go build -o phantom-proxy.exe ./cmd" -ForegroundColor Cyan
+        Write-Host "  Move-Item phantom-proxy.exe `$env:ProgramFiles\phantom-proxy\" -ForegroundColor Cyan
         exit 1
     }
 }

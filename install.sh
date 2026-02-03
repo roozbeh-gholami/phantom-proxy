@@ -109,7 +109,17 @@ get_latest_version() {
         print_info "Fetching latest release version..."
         VERSION=$(curl -s "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [ -z "$VERSION" ]; then
-            print_error "Failed to fetch latest version"
+            print_error "No releases found in the repository."
+            echo ""
+            echo "Please create a release first or specify a version:"
+            echo "  export PHANTOM_PROXY_VERSION=v1.0.0"
+            echo "  sudo ./install.sh"
+            echo ""
+            echo "Or install from source:"
+            echo "  git clone https://github.com/${GITHUB_REPO}.git"
+            echo "  cd phantom-proxy"
+            echo "  go build -o phantom-proxy ./cmd"
+            echo "  sudo mv phantom-proxy /usr/local/bin/"
             exit 1
         fi
         print_info "Latest version: $VERSION"

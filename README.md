@@ -71,9 +71,53 @@ The installation script will:
 - Install example configuration files
 - Add phantom-proxy to your system PATH
 
+> **Note:** If no releases are available yet, see the "Build from Source" section below.
+
+### Build from Source
+
+If there are no releases available or you want to build from source:
+
+**Prerequisites:**
+- Go 1.25 or later
+- Git
+- libpcap development libraries (see requirements below)
+
+**Steps:**
+
+```bash
+# Clone the repository
+git clone https://github.com/roozbeh-gholami/phantom-proxy.git
+cd phantom-proxy
+
+# Install dependencies
+go mod download
+
+# Build the binary
+go build -o phantom-proxy ./cmd
+
+# Install system-wide (optional)
+sudo mv phantom-proxy /usr/local/bin/
+
+# Download example configs
+sudo mkdir -p /etc/phantom-proxy
+sudo cp example/*.example /etc/phantom-proxy/
+```
+
+**Windows:**
+```powershell
+# Clone and build
+git clone https://github.com/roozbeh-gholami/phantom-proxy.git
+cd phantom-proxy
+go build -o phantom-proxy.exe ./cmd
+
+# Install system-wide (optional, run as Administrator)
+New-Item -ItemType Directory -Path "$env:ProgramFiles\phantom-proxy" -Force
+Move-Item phantom-proxy.exe "$env:ProgramFiles\phantom-proxy\"
+```
+
 ### Manual Installation
 
-If you prefer to install manually or the automated script doesn't work for your system:
+If you prefer to install manually from releases:
 
 #### Prerequisites
 
