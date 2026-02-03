@@ -3,9 +3,9 @@ package kcp
 import (
 	"fmt"
 	"net"
-	"paqet/internal/protocol"
-	"paqet/internal/socket"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/socket"
+	"phantom-proxy/internal/tnet"
 	"time"
 
 	"github.com/xtaci/kcp-go/v5"

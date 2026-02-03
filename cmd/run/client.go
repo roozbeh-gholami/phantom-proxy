@@ -4,11 +4,11 @@ import (
 	"context"
 	"os"
 	"os/signal"
-	"paqet/internal/client"
-	"paqet/internal/conf"
-	"paqet/internal/flog"
-	"paqet/internal/forward"
-	"paqet/internal/socks"
+	"phantom-proxy/internal/client"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/forward"
+	"phantom-proxy/internal/socks"
 	"syscall"
 )
 

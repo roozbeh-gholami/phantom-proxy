@@ -1,4 +1,4 @@
-module paqet
+module phantom-proxy
 
 go 1.25
 

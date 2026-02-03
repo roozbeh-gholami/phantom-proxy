@@ -1,7 +1,7 @@
 package kcp
 
 import (
-	"paqet/internal/conf"
+	"phantom-proxy/internal/conf"
 	"time"
 
 	"github.com/xtaci/kcp-go/v5"

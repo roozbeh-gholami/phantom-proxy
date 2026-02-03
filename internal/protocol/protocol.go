@@ -3,8 +3,8 @@ package protocol
 import (
 	"encoding/gob"
 	"io"
-	"paqet/internal/conf"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/tnet"
 )
 
 type PType = byte

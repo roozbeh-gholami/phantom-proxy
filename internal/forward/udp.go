@@ -4,9 +4,9 @@ import (
 	"context"
 	"io"
 	"net"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/buffer"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/buffer"
+	"phantom-proxy/internal/tnet"
 	"time"
 )
 

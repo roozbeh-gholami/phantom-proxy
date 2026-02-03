@@ -3,11 +3,11 @@ package client
 import (
 	"context"
 	"fmt"
-	"paqet/internal/conf"
-	"paqet/internal/protocol"
-	"paqet/internal/socket"
-	"paqet/internal/tnet"
-	"paqet/internal/tnet/kcp"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/socket"
+	"phantom-proxy/internal/tnet"
+	"phantom-proxy/internal/tnet/kcp"
 	"time"
 )
 

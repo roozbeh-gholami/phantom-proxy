@@ -1,9 +1,9 @@
 package client
 
 import (
-	"paqet/internal/flog"
-	"paqet/internal/protocol"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/tnet"
 )
 
 func (c *Client) TCP(addr string) (tnet.Strm, error) {

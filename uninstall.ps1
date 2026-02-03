@@ -1,11 +1,11 @@
-# paqet Uninstallation Script for Windows
+# phantom-proxy Uninstallation Script for Windows
 # Run as Administrator: .\uninstall.ps1
 
 #Requires -RunAsAdministrator
 
 param(
-    [string]$InstallDir = "$env:ProgramFiles\paqet",
-    [string]$ConfigDir = "$env:ProgramData\paqet"
+    [string]$InstallDir = "$env:ProgramFiles\phantom-proxy",
+    [string]$ConfigDir = "$env:ProgramData\phantom-proxy"
 )
 
 $ErrorActionPreference = "Stop"
@@ -40,9 +40,9 @@ function Test-Administrator {
 }
 
 function Remove-Binary {
-    if (Test-Path "$InstallDir\paqet.exe") {
-        Write-Info "Removing binary from $InstallDir\paqet.exe..."
-        Remove-Item -Path "$InstallDir\paqet.exe" -Force
+    if (Test-Path "$InstallDir\phantom-proxy.exe") {
+        Write-Info "Removing binary from $InstallDir\phantom-proxy.exe..."
+        Remove-Item -Path "$InstallDir\phantom-proxy.exe" -Force
         
         # Remove directory if empty
         if ((Get-ChildItem -Path $InstallDir -Force | Measure-Object).Count -eq 0) {
@@ -52,12 +52,12 @@ function Remove-Binary {
         Write-Info "Binary removed"
     }
     else {
-        Write-Warning "Binary not found at $InstallDir\paqet.exe"
+        Write-Warning "Binary not found at $InstallDir\phantom-proxy.exe"
     }
 }
 
 function Remove-FromPath {
-    Write-Info "Removing paqet from system PATH..."
+    Write-Info "Removing phantom-proxy from system PATH..."
     
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
     
@@ -93,7 +93,7 @@ function Remove-Configs {
 function Main {
     Write-Host ""
     Write-Host "╔═══════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║         paqet Uninstallation Script for Windows           ║" -ForegroundColor Cyan
+    Write-Host "║         phantom-proxy Uninstallation Script for Windows   ║" -ForegroundColor Cyan
     Write-Host "╚═══════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
     

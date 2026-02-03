@@ -2,8 +2,8 @@ package run
 
 import (
 	"log"
-	"paqet/internal/conf"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/flog"
 
 	"github.com/spf13/cobra"
 )

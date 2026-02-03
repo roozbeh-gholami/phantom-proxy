@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"net"
 	"os"
-	"paqet/internal/conf"
+	"phantom-proxy/internal/conf"
 	"sync/atomic"
 	"time"
 )

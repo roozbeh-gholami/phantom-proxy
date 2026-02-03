@@ -65,15 +65,15 @@ jobs:
 
                   go build -v -a -trimpath \
                     -ldflags "-s -w -buildid= \
-                    -X 'paqet/cmd/version.Version=${VERSION}' \
-                    -X 'paqet/cmd/version.GitCommit=${GIT_COMMIT}' \
-                    -X 'paqet/cmd/version.GitTag=${GIT_TAG}' \
-                    -X 'paqet/cmd/version.BuildTime=${BUILD_TIME}'" \
-                    -o paqet_linux_${{ matrix.goarch }} ./cmd/main.go
+                    -X 'phantom-proxy/cmd/version.Version=${VERSION}' \
+                    -X 'phantom-proxy/cmd/version.GitCommit=${GIT_COMMIT}' \
+                    -X 'phantom-proxy/cmd/version.GitTag=${GIT_TAG}' \
+                    -X 'phantom-proxy/cmd/version.BuildTime=${BUILD_TIME}'" \
+                    -o phantom-proxy_linux_${{ matrix.goarch }} ./cmd/main.go
 
-                  chmod +x paqet_linux_${{ matrix.goarch }}
-                  tar -czvf dist/paqet-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
-                    paqet_linux_${{ matrix.goarch }} \
+                  chmod +x phantom-proxy_linux_${{ matrix.goarch }}
+                  tar -czvf dist/phantom-proxy-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
+                    phantom-proxy_linux_${{ matrix.goarch }} \
                     README.md \
                     example/client.yaml.example \
                     example/server.yaml.example
@@ -81,6 +81,6 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: paqet-linux-${{ matrix.goarch }}
-                  path: dist/paqet-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
+                  name: phantom-proxy-linux-${{ matrix.goarch }}
+                  path: dist/phantom-proxy-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
                   retention-days: 7

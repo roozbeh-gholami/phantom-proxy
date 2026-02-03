@@ -2,10 +2,10 @@ package client
 
 import (
 	"context"
-	"paqet/internal/conf"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/iterator"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/iterator"
+	"phantom-proxy/internal/tnet"
 	"sync"
 )
 

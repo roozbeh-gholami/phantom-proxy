@@ -1,12 +1,12 @@
 #!/bin/bash
-# paqet Installation Script for Linux/macOS
-# This script automates the installation of paqet
+# phantom-proxy Installation Script for Linux/macOS
+# This script automates the installation of phantom-proxy
 
 set -e
 
-VERSION="${PAQET_VERSION:-latest}"
-INSTALL_DIR="${PAQET_INSTALL_DIR:-/usr/local/bin}"
-CONFIG_DIR="${PAQET_CONFIG_DIR:-/etc/paqet}"
+VERSION="${PHANTOM_PROXY_VERSION:-latest}"
+INSTALL_DIR="${PHANTOM_PROXY_INSTALL_DIR:-/usr/local/bin}"
+CONFIG_DIR="${PHANTOM_PROXY_CONFIG_DIR:-/etc/phantom-proxy}"
 GITHUB_REPO="roozbeh-gholami/phantom-proxy"
 
 # Colors for output
@@ -118,12 +118,12 @@ get_latest_version() {
 
 # Download and install binary
 install_binary() {
-    BINARY_NAME="paqet_${OS}_${ARCH}"
+    BINARY_NAME="phantom-proxy_${OS}_${ARCH}"
     DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${VERSION}/${BINARY_NAME}"
     
-    print_info "Downloading paqet from $DOWNLOAD_URL..."
+    print_info "Downloading phantom-proxy from $DOWNLOAD_URL..."
     
-    TMP_FILE="/tmp/paqet_${OS}_${ARCH}"
+    TMP_FILE="/tmp/phantom-proxy_${OS}_${ARCH}"
     
     if command -v curl &> /dev/null; then
         curl -L -o "$TMP_FILE" "$DOWNLOAD_URL"
@@ -139,9 +139,9 @@ install_binary() {
         exit 1
     fi
     
-    print_info "Installing binary to $INSTALL_DIR/paqet..."
+    print_info "Installing binary to $INSTALL_DIR/phantom-proxy..."
     chmod +x "$TMP_FILE"
-    mv "$TMP_FILE" "$INSTALL_DIR/paqet"
+    mv "$TMP_FILE" "$INSTALL_DIR/phantom-proxy"
     
     print_info "Binary installed successfully"
 }
@@ -187,10 +187,10 @@ print_instructions() {
     echo "   nano $CONFIG_DIR/config.yaml"
     echo ""
     echo "3. Generate a secret key:"
-    echo "   paqet secret"
+    echo "   phantom-proxy secret"
     echo ""
-    echo "4. Run paqet:"
-    echo "   sudo paqet run -c $CONFIG_DIR/config.yaml"
+    echo "4. Run phantom-proxy:"
+    echo "   sudo phantom-proxy run -c $CONFIG_DIR/config.yaml"
     echo ""
     echo "For server installations, remember to configure iptables:"
     echo "   sudo iptables -t raw -A PREROUTING -p tcp --dport <PORT> -j NOTRACK"
@@ -205,7 +205,7 @@ print_instructions() {
 main() {
     echo ""
     echo "╔═══════════════════════════════════════════════════════════╗"
-    echo "║         paqet Installation Script                         ║"
+    echo "║         phantom-proxy Installation Script                 ║"
     echo "╚═══════════════════════════════════════════════════════════╝"
     echo ""
     

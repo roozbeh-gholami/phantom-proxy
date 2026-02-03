@@ -2,8 +2,8 @@ package ping
 
 import (
 	"log"
-	"paqet/internal/conf"
-	"paqet/internal/socket"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/socket"
 
 	"github.com/spf13/cobra"
 )

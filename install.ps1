@@ -1,13 +1,13 @@
-# paqet Installation Script for Windows
-# This script automates the installation of paqet on Windows
+# phantom-proxy Installation Script for Windows
+# This script automates the installation of phantom-proxy on Windows
 # Run as Administrator: .\install.ps1
 
 #Requires -RunAsAdministrator
 
 param(
     [string]$Version = "latest",
-    [string]$InstallDir = "$env:ProgramFiles\paqet",
-    [string]$ConfigDir = "$env:ProgramData\paqet"
+    [string]$InstallDir = "$env:ProgramFiles\phantom-proxy",
+    [string]$ConfigDir = "$env:ProgramData\phantom-proxy"
 )
 
 $ErrorActionPreference = "Stop"
@@ -85,7 +85,7 @@ function Install-Npcap {
         return
     }
     
-    Write-Warning "Npcap is not installed. Npcap is required for paqet to function."
+    Write-Warning "Npcap is not installed. Npcap is required for phantom-proxy to function."
     Write-Host ""
     Write-Host "Please download and install Npcap from: https://npcap.com/#download" -ForegroundColor Cyan
     Write-Host "After installing Npcap, run this script again." -ForegroundColor Cyan
@@ -119,12 +119,12 @@ function Install-Binary {
         [string]$Arch
     )
     
-    $binaryName = "paqet_windows_$Arch.exe"
+    $binaryName = "phantom-proxy_windows_$Arch.exe"
     $downloadUrl = "https://github.com/$GithubRepo/releases/download/$Version/$binaryName"
     
-    Write-Info "Downloading paqet from $downloadUrl..."
+    Write-Info "Downloading phantom-proxy from $downloadUrl..."
     
-    $tempFile = "$env:TEMP\paqet.exe"
+    $tempFile = "$env:TEMP\phantom-proxy.exe"
     
     try {
         Invoke-WebRequest -Uri $downloadUrl -OutFile $tempFile
@@ -134,7 +134,7 @@ function Install-Binary {
         exit 1
     }
     
-    Write-Info "Installing binary to $InstallDir\paqet.exe..."
+    Write-Info "Installing binary to $InstallDir\phantom-proxy.exe..."
     
     # Create installation directory
     if (-not (Test-Path $InstallDir)) {
@@ -142,13 +142,13 @@ function Install-Binary {
     }
     
     # Move binary
-    Move-Item -Path $tempFile -Destination "$InstallDir\paqet.exe" -Force
+    Move-Item -Path $tempFile -Destination "$InstallDir\phantom-proxy.exe" -Force
     
     Write-Info "Binary installed successfully"
 }
 
 function Add-ToPath {
-    Write-Info "Adding paqet to system PATH..."
+    Write-Info "Adding phantom-proxy to system PATH..."
     
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
     
@@ -207,22 +207,22 @@ function Show-PostInstallInstructions {
     Write-Host "   # Use format: \Device\NPF_{GUID} in config"
     Write-Host ""
     Write-Host "4. Generate a secret key:"
-    Write-Host "   paqet secret"
+    Write-Host "   phantom-proxy secret"
     Write-Host ""
-    Write-Host "5. Run paqet (as Administrator):"
-    Write-Host "   paqet run -c `"$ConfigDir\config.yaml`""
+    Write-Host "5. Run phantom-proxy (as Administrator):"
+    Write-Host "   phantom-proxy run -c `"$ConfigDir\config.yaml`""
     Write-Host ""
     Write-Host "Documentation: https://github.com/$GithubRepo" -ForegroundColor Cyan
     Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
     Write-Host ""
-    Write-Host "Note: Close and reopen your terminal to use 'paqet' command globally." -ForegroundColor Yellow
+    Write-Host "Note: Close and reopen your terminal to use 'phantom-proxy' command globally." -ForegroundColor Yellow
 }
 
 # Main installation process
 function Main {
     Write-Host ""
     Write-Host "╔═══════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║         paqet Installation Script for Windows             ║" -ForegroundColor Cyan
+    Write-Host "║         phantom-proxy Installation Script for Windows     ║" -ForegroundColor Cyan
     Write-Host "╚═══════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
     

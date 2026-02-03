@@ -3,7 +3,7 @@ package secret
 import (
 	"crypto/rand"
 	"fmt"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/flog"
 
 	"github.com/spf13/cobra"
 )

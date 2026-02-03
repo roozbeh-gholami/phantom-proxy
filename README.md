@@ -1,9 +1,9 @@
-# paqet - Transport over Raw Packet
+# phantom-proxy - Transport over Raw Packet
 
 [![Go Version](https://img.shields.io/badge/go-1.25+-blue.svg)](https://golang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-`paqet` is a bidirectional Packet-level proxy built using raw sockets in Go. It forwards traffic from a local client to a remote server, which then connects to target services. By operating at the packet level, it completely bypasses the host operating system's TCP/IP stack and uses KCP for secure, reliable transport.
+`phantom-proxy` is a bidirectional Packet-level proxy built using raw sockets in Go. It forwards traffic from a local client to a remote server, which then connects to target services. By operating at the packet level, it completely bypasses the host operating system's TCP/IP stack and uses KCP for secure, reliable transport.
 
 > **⚠️ Development Status Notice**
 >
@@ -18,16 +18,16 @@ This project serves as an example of low-level network programming in Go, demons
 
 ## Use Cases and Motivation
 
-`paqet` is designed for specific scenarios where standard VPN or SSH tunnels may be insufficient. Its primary use cases include bypassing firewalls that detect standard handshake protocols by using custom packet structures, network security research for penetration testing and data exfiltration, and evading kernel-level connection tracking for monitoring avoidance.
+`phantom-proxy` is designed for specific scenarios where standard VPN or SSH tunnels may be insufficient. Its primary use cases include bypassing firewalls that detect standard handshake protocols by using custom packet structures, network security research for penetration testing and data exfiltration, and evading kernel-level connection tracking for monitoring avoidance.
 
-While `paqet` includes built-in encryption via KCP, it is more complex to configure than general-purpose VPN solutions.
+While `phantom-proxy` includes built-in encryption via KCP, it is more complex to configure than general-purpose VPN solutions.
 
 ## How It Works
 
-`paqet` creates a transport channel using KCP over raw TCP packets, bypassing the OS's TCP/IP stack entirely. It captures packets using pcap and injects crafted TCP packets containing encrypted transport data, allowing it to bypass kernel-level connection tracking and evade firewalls.
+`phantom-proxy` creates a transport channel using KCP over raw TCP packets, bypassing the OS's TCP/IP stack entirely. It captures packets using pcap and injects crafted TCP packets containing encrypted transport data, allowing it to bypass kernel-level connection tracking and evade firewalls.
 
 ```
-[Your App] <------> [paqet Client] <===== Raw TCP Packet =====> [paqet Server] <------> [Target Server]
+[Your App] <------> [phantom-proxy Client] <===== Raw TCP Packet =====> [phantom-proxy Server] <------> [Target Server]
 (e.g. curl)        (localhost:1080)        (Internet)          (Public IP:PORT)     (e.g. https://httpbin.org)
 ```
 
@@ -39,7 +39,7 @@ KCP provides reliable, encrypted communication optimized for high-loss or unpred
 
 ### Quick Installation (Recommended)
 
-The easiest way to install paqet is using our automated installation scripts.
+The easiest way to install phantom-proxy is using our automated installation scripts.
 
 #### Linux/macOS
 
@@ -67,9 +67,9 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 The installation script will:
 - Detect your OS and architecture automatically
 - Install required dependencies (libpcap/Npcap)
-- Download the latest paqet binary
+- Download the latest phantom-proxy binary
 - Install example configuration files
-- Add paqet to your system PATH
+- Add phantom-proxy to your system PATH
 
 ### Manual Installation
 
@@ -91,7 +91,7 @@ You will also need the configuration files from the `example/` directory.
 
 #### 2. Configure the Connection
 
-paqet uses a unified configuration approach with role-based settings. Copy and modify either:
+phantom-proxy uses a unified configuration approach with role-based settings. Copy and modify either:
 
 - `example/client.yaml.example` - Client configuration example
 - `example/server.yaml.example` - Server configuration example
@@ -158,7 +158,7 @@ network:
 
 # Server connection settings
 server:
-  addr: "10.0.0.100:9999" # CHANGE ME: paqet server address and port
+  addr: "10.0.0.100:9999" # CHANGE ME: phantom-proxy server address and port
 
 # Transport protocol configuration
 transport:
@@ -228,28 +228,28 @@ sudo iptables -t filter -A OUTPUT -p tcp --sport <PORT> -j ACCEPT
 
 These rules ensure that only the application handles traffic for the connection port.
 
-#### 3. Run `paqet`
+#### 3. Run `phantom-proxy`
 
-If you used the automated installer, paqet will be available globally. Otherwise, make the downloaded binary executable (`chmod +x ./paqet_linux_amd64`). You will need root privileges to use raw sockets.
+If you used the automated installer, phantom-proxy will be available globally. Otherwise, make the downloaded binary executable (`chmod +x ./phantom-proxy_linux_amd64`). You will need root privileges to use raw sockets.
 
 **On the Server:**
 
 ```bash
 # If installed via script:
-sudo paqet run -c /etc/paqet/config.yaml
+sudo phantom-proxy run -c /etc/phantom-proxy/config.yaml
 
 # If manual installation, place your server configuration file in the same directory as the binary:
-sudo ./paqet_linux_amd64 run -c config.yaml
+sudo ./phantom-proxy_linux_amd64 run -c config.yaml
 ```
 
 **On the Client:**
 
 ```bash
 # If installed via script:
-sudo paqet run -c /etc/paqet/config.yaml
+sudo phantom-proxy run -c /etc/phantom-proxy/config.yaml
 
 # If manual installation, place your client configuration file in the same directory as the binary:
-sudo ./paqet_darwin_arm64 run -c config.yaml
+sudo ./phantom-proxy_darwin_arm64 run -c config.yaml
 ```
 
 #### 4. Test the Connection
@@ -265,17 +265,17 @@ This request will be proxied over raw TCP packets to the server, and then forwar
 
 ## Command-Line Usage
 
-`paqet` is a multi-command application. The primary command is `run`, which starts the proxy, but several utility commands are included to help with configuration and debugging.
+`phantom-proxy` is a multi-command application. The primary command is `run`, which starts the proxy, but several utility commands are included to help with configuration and debugging.
 
 The general syntax is:
 
 ```bash
-sudo ./paqet <command> [arguments]
+sudo ./phantom-proxy <command> [arguments]
 ```
 
 | Command   | Description                                                                      |
 | :-------- | :------------------------------------------------------------------------------- |
-| `run`     | Starts the `paqet` client or server proxy. This is the main operational command. |
+| `run`     | Starts the `phantom-proxy` client or server proxy. This is the main operational command. |
 | `secret`  | Generates a new, cryptographically secure secret key.                            |
 | `ping`    | Sends a single test packet to the server to verify connectivity .                |
 | `dump`    | A diagnostic tool similar to `tcpdump` that captures and decodes packets.        |
@@ -283,7 +283,7 @@ sudo ./paqet <command> [arguments]
 
 ## Configuration Reference
 
-paqet uses a unified YAML configuration that works for both clients and servers. The `role` field must be explicitly set to either `"client"` or `"server"`.
+phantom-proxy uses a unified YAML configuration that works for both clients and servers. The `role` field must be explicitly set to either `"client"` or `"server"`.
 
 **For complete parameter documentation, see the example files:**
 
@@ -331,18 +331,18 @@ A normal application uses the OS's TCP/IP stack. When a packet arrives, it trave
       +------------------------+
 ```
 
-`paqet` uses `pcap` to hook in at a much lower level. It requests a **copy** of every packet directly from the network driver, _before_ the main OS TCP/IP stack and firewall get to process it.
+`phantom-proxy` uses `pcap` to hook in at a much lower level. It requests a **copy** of every packet directly from the network driver, _before_ the main OS TCP/IP stack and firewall get to process it.
 
 ```
       +------------------------+
-      |    paqet Application   |  <-- Gets a packet copy immediately
+      |    phantom-proxy Application   |  <-- Gets a packet copy immediately
       +------------------------+
               ^       \
  (pcap copy) /         \  (Original packet continues up)
             /           v
       +------------------------+
       |     OS TCP/IP Stack    |  <-- Firewall drops the *original* packet,
-      |  (Connection Tracking) |      but paqet already has its copy.
+      |  (Connection Tracking) |      but phantom-proxy already has its copy.
       +------------------------+
                   ^
       +------------------------+
@@ -350,7 +350,7 @@ A normal application uses the OS's TCP/IP stack. When a packet arrives, it trave
       +------------------------+
 ```
 
-This means a rule like `ufw deny <PORT>` will have no effect on the proxy's operation, as `paqet` receives and processes the packet before `ufw` can block it.
+This means a rule like `ufw deny <PORT>` will have no effect on the proxy's operation, as `phantom-proxy` receives and processes the packet before `ufw` can block it.
 
 ## ⚠️ Security Warning
 
@@ -368,11 +368,11 @@ Security depends entirely on proper key management. Use the `secret` command to 
     - **Incorrect Network Details:** Double-check all IPs, MAC addresses, and interface names.
     - **Cloud Provider Firewalls:** Ensure your cloud provider's security group allows TCP traffic on your `listen.addr` port.
     - **NAT/Port Configuration:** For servers, ensure `listen.addr` and `network.ipv4.addr` ports match. For clients, use port `0` in `network.ipv4.addr` for automatic port assignment to avoid conflicts.
-3.  **Use `ping` and `dump`:** Use `paqet ping -c config.yaml` to test the connection. Use `paqet dump -p <PORT>` on the server to see if packets are arriving.
+3.  **Use `ping` and `dump`:** Use `phantom-proxy ping -c config.yaml` to test the connection. Use `phantom-proxy dump -p <PORT>` on the server to see if packets are arriving.
 
 ## Uninstallation
 
-To remove paqet from your system:
+To remove phantom-proxy from your system:
 
 ### Linux/macOS
 

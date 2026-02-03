@@ -2,7 +2,7 @@ package conf
 
 import (
 	"fmt"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/flog"
 )
 
 type PCAP struct {

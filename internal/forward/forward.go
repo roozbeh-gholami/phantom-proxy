@@ -3,8 +3,8 @@ package forward
 import (
 	"context"
 	"fmt"
-	"paqet/internal/client"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/client"
+	"phantom-proxy/internal/flog"
 	"sync"
 )
 

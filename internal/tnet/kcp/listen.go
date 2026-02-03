@@ -2,9 +2,9 @@ package kcp
 
 import (
 	"net"
-	"paqet/internal/conf"
-	"paqet/internal/socket"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/socket"
+	"phantom-proxy/internal/tnet"
 
 	"github.com/xtaci/kcp-go/v5"
 	"github.com/xtaci/smux"

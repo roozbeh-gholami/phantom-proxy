@@ -1,9 +1,9 @@
 package run
 
 import (
-	"paqet/internal/conf"
-	"paqet/internal/flog"
-	"paqet/internal/server"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/server"
 )
 
 func startServer(cfg *conf.Conf) {

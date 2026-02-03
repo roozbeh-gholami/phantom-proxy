@@ -1,9 +1,9 @@
 package server
 
 import (
-	"paqet/internal/flog"
-	"paqet/internal/protocol"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/tnet"
 )
 
 func (s *Server) handlePing(strm tnet.Strm) error {

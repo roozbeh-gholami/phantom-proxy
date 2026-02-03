@@ -1,10 +1,10 @@
 package client
 
 import (
-	"paqet/internal/flog"
-	"paqet/internal/pkg/hash"
-	"paqet/internal/protocol"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/hash"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/tnet"
 )
 
 func (c *Client) UDP(lAddr, tAddr string) (tnet.Strm, bool, uint64, error) {

@@ -3,8 +3,8 @@ package forward
 import (
 	"context"
 	"net"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/buffer"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/buffer"
 )
 
 func (f *Forward) listenTCP(ctx context.Context) error {

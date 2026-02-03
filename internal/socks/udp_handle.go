@@ -3,8 +3,8 @@ package socks
 import (
 	"io"
 	"net"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/buffer"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/buffer"
 	"time"
 
 	"github.com/txthinking/socks5"

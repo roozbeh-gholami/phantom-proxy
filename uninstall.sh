@@ -1,10 +1,10 @@
 #!/bin/bash
-# paqet Uninstallation Script for Linux/macOS
+# phantom-proxy Uninstallation Script for Linux/macOS
 
 set -e
 
-INSTALL_DIR="${PAQET_INSTALL_DIR:-/usr/local/bin}"
-CONFIG_DIR="${PAQET_CONFIG_DIR:-/etc/paqet}"
+INSTALL_DIR="${PHANTOM_PROXY_INSTALL_DIR:-/usr/local/bin}"
+CONFIG_DIR="${PHANTOM_PROXY_CONFIG_DIR:-/etc/phantom-proxy}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -32,12 +32,12 @@ check_root() {
 }
 
 remove_binary() {
-    if [ -f "$INSTALL_DIR/paqet" ]; then
-        print_info "Removing binary from $INSTALL_DIR/paqet..."
-        rm -f "$INSTALL_DIR/paqet"
+    if [ -f "$INSTALL_DIR/phantom-proxy" ]; then
+        print_info "Removing binary from $INSTALL_DIR/phantom-proxy..."
+        rm -f "$INSTALL_DIR/phantom-proxy"
         print_info "Binary removed"
     else
-        print_warn "Binary not found at $INSTALL_DIR/paqet"
+        print_warn "Binary not found at $INSTALL_DIR/phantom-proxy"
     fi
 }
 
@@ -61,7 +61,7 @@ remove_configs() {
 main() {
     echo ""
     echo "╔═══════════════════════════════════════════════════════════╗"
-    echo "║         paqet Uninstallation Script                       ║"
+    echo "║         phantom-proxy Uninstallation Script               ║"
     echo "╚═══════════════════════════════════════════════════════════╝"
     echo ""
     

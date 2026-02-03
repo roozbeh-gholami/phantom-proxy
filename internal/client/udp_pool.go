@@ -1,8 +1,8 @@
 package client
 
 import (
-	"paqet/internal/flog"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/tnet"
 	"sync"
 )
 

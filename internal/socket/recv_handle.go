@@ -3,7 +3,7 @@ package socket
 import (
 	"fmt"
 	"net"
-	"paqet/internal/conf"
+	"phantom-proxy/internal/conf"
 	"runtime"
 
 	"github.com/gopacket/gopacket"

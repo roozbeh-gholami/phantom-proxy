@@ -3,10 +3,10 @@ package server
 import (
 	"context"
 	"net"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/buffer"
-	"paqet/internal/protocol"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/buffer"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/tnet"
 	"time"
 )
 

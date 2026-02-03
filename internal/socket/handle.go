@@ -2,7 +2,7 @@ package socket
 
 import (
 	"fmt"
-	"paqet/internal/conf"
+	"phantom-proxy/internal/conf"
 	"runtime"
 
 	"github.com/gopacket/gopacket/pcap"

@@ -69,15 +69,15 @@ jobs:
                   go build -v -a -trimpath \
                     -gcflags "all=-l=4" \
                     -ldflags "-s -w -buildid= \
-                    -X 'paqet/cmd/version.Version=${VERSION}' \
-                    -X 'paqet/cmd/version.GitCommit=${GIT_COMMIT}' \
-                    -X 'paqet/cmd/version.GitTag=${GIT_TAG}' \
-                    -X 'paqet/cmd/version.BuildTime=${BUILD_TIME}'" \
-                    -o paqet_linux_${{ matrix.goarch }} ./cmd/main.go
+                    -X 'phantom-proxy/cmd/version.Version=${VERSION}' \
+                    -X 'phantom-proxy/cmd/version.GitCommit=${GIT_COMMIT}' \
+                    -X 'phantom-proxy/cmd/version.GitTag=${GIT_TAG}' \
+                    -X 'phantom-proxy/cmd/version.BuildTime=${BUILD_TIME}'" \
+                    -o phantom-proxy_linux_${{ matrix.goarch }} ./cmd/main.go
 
-                  chmod +x paqet_linux_${{ matrix.goarch }}
-                  tar -czvf dist/paqet-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
-                    paqet_linux_${{ matrix.goarch }} \
+                  chmod +x phantom-proxy_linux_${{ matrix.goarch }}
+                  tar -czvf dist/phantom-proxy-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
+                    phantom-proxy_linux_${{ matrix.goarch }} \
                     README.md \
                     example/client.yaml.example \
                     example/server.yaml.example
@@ -85,8 +85,8 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: paqet-linux-${{ matrix.goarch }}
-                  path: dist/paqet-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
+                  name: phantom-proxy-linux-${{ matrix.goarch }}
+                  path: dist/phantom-proxy-linux-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
                   retention-days: 1
 
     build-windows:
@@ -138,14 +138,14 @@ jobs:
                   go build -v -a -trimpath \
                     -gcflags "all=-l=4" \
                     -ldflags "-s -w -buildid= \
-                    -X 'paqet/cmd/version.Version=${VERSION}' \
-                    -X 'paqet/cmd/version.GitCommit=${GIT_COMMIT}' \
-                    -X 'paqet/cmd/version.GitTag=${GIT_TAG}' \
-                    -X 'paqet/cmd/version.BuildTime=${BUILD_TIME}'" \
-                    -o paqet_windows_${{ matrix.goarch }}.exe ./cmd/main.go
+                    -X 'phantom-proxy/cmd/version.Version=${VERSION}' \
+                    -X 'phantom-proxy/cmd/version.GitCommit=${GIT_COMMIT}' \
+                    -X 'phantom-proxy/cmd/version.GitTag=${GIT_TAG}' \
+                    -X 'phantom-proxy/cmd/version.BuildTime=${BUILD_TIME}'" \
+                    -o phantom-proxy_windows_${{ matrix.goarch }}.exe ./cmd/main.go
 
-                  7z a -tzip dist/paqet-windows-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.zip \
-                    paqet_windows_${{ matrix.goarch }}.exe \
+                  7z a -tzip dist/phantom-proxy-windows-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.zip \
+                    phantom-proxy_windows_${{ matrix.goarch }}.exe \
                     README.md \
                     example/client.yaml.example \
                     example/server.yaml.example
@@ -153,8 +153,8 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: paqet-windows-${{ matrix.goarch }}
-                  path: dist/paqet-windows-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.zip
+                  name: phantom-proxy-windows-${{ matrix.goarch }}
+                  path: dist/phantom-proxy-windows-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.zip
                   retention-days: 1
 
     build-darwin:
@@ -197,15 +197,15 @@ jobs:
                   go build -v -a -trimpath \
                     -gcflags "all=-l=4" \
                     -ldflags "-s -w -buildid= \
-                    -X 'paqet/cmd/version.Version=${VERSION}' \
-                    -X 'paqet/cmd/version.GitCommit=${GIT_COMMIT}' \
-                    -X 'paqet/cmd/version.GitTag=${GIT_TAG}' \
-                    -X 'paqet/cmd/version.BuildTime=${BUILD_TIME}'" \
-                    -o paqet_darwin_${{ matrix.goarch }} ./cmd/main.go
+                    -X 'phantom-proxy/cmd/version.Version=${VERSION}' \
+                    -X 'phantom-proxy/cmd/version.GitCommit=${GIT_COMMIT}' \
+                    -X 'phantom-proxy/cmd/version.GitTag=${GIT_TAG}' \
+                    -X 'phantom-proxy/cmd/version.BuildTime=${BUILD_TIME}'" \
+                    -o phantom-proxy_darwin_${{ matrix.goarch }} ./cmd/main.go
 
-                  chmod +x paqet_darwin_${{ matrix.goarch }}
-                  tar -czvf dist/paqet-darwin-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
-                    paqet_darwin_${{ matrix.goarch }} \
+                  chmod +x phantom-proxy_darwin_${{ matrix.goarch }}
+                  tar -czvf dist/phantom-proxy-darwin-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz \
+                    phantom-proxy_darwin_${{ matrix.goarch }} \
                     README.md \
                     example/client.yaml.example \
                     example/server.yaml.example
@@ -213,8 +213,8 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: paqet-darwin-${{ matrix.goarch }}
-                  path: dist/paqet-darwin-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
+                  name: phantom-proxy-darwin-${{ matrix.goarch }}
+                  path: dist/phantom-proxy-darwin-${{ matrix.goarch }}-${{ steps.ref_id.outputs.ref }}.tar.gz
                   retention-days: 1
 
     release:
@@ -226,7 +226,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   path: ./dist
-                  pattern: paqet-*
+                  pattern: phantom-proxy-*
                   merge-multiple: true
 
             - name: Create Release

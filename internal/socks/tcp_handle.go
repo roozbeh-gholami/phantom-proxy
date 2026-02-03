@@ -2,8 +2,8 @@ package socks
 
 import (
 	"net"
-	"paqet/internal/flog"
-	"paqet/internal/pkg/buffer"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/pkg/buffer"
 
 	"github.com/txthinking/socks5"
 )

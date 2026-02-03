@@ -3,9 +3,9 @@ package socks
 import (
 	"context"
 	"net"
-	"paqet/internal/client"
-	"paqet/internal/conf"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/client"
+	"phantom-proxy/internal/conf"
+	"phantom-proxy/internal/flog"
 
 	"github.com/txthinking/socks5"
 )

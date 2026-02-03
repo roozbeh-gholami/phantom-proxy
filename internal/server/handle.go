@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 	"fmt"
-	"paqet/internal/flog"
-	"paqet/internal/protocol"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/flog"
+	"phantom-proxy/internal/protocol"
+	"phantom-proxy/internal/tnet"
 )
 
 func (s *Server) handleConn(ctx context.Context, conn tnet.Conn) {

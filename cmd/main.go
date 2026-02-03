@@ -2,21 +2,21 @@ package main
 
 import (
 	"os"
-	"paqet/cmd/dump"
-	"paqet/cmd/iface"
-	"paqet/cmd/ping"
-	"paqet/cmd/run"
-	"paqet/cmd/secret"
-	"paqet/cmd/version"
-	"paqet/internal/flog"
+	"phantom-proxy/cmd/dump"
+	"phantom-proxy/cmd/iface"
+	"phantom-proxy/cmd/ping"
+	"phantom-proxy/cmd/run"
+	"phantom-proxy/cmd/secret"
+	"phantom-proxy/cmd/version"
+	"phantom-proxy/internal/flog"
 
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "paqet",
+	Use:   "phantom-proxy",
 	Short: "KCP transport over raw TCP packet.",
-	Long:  `paqet is a bidirectional packet-level proxy using KCP and raw socket transport with encryption.`,
+	Long:  `phantom-proxy is a bidirectional packet-level proxy using KCP and raw socket transport with encryption.`,
 }
 
 func main() {

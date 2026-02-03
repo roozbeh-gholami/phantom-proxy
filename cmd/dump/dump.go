@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/flog"
 	"strings"
 	"time"
 

@@ -2,7 +2,7 @@ package socks
 
 import (
 	"context"
-	"paqet/internal/client"
+	"phantom-proxy/internal/client"
 	"sync"
 )
 

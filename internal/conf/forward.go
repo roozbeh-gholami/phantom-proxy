@@ -2,7 +2,7 @@ package conf
 
 import (
 	"net"
-	"paqet/internal/tnet"
+	"phantom-proxy/internal/tnet"
 )
 
 type Forward struct {

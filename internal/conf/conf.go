@@ -3,7 +3,7 @@ package conf
 import (
 	"fmt"
 	"os"
-	"paqet/internal/flog"
+	"phantom-proxy/internal/flog"
 	"slices"
 	"strings"
 
