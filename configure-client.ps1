@@ -186,7 +186,7 @@ socks5:
 
 # Network interface settings
 network:
-  guid: "$interfaceGuid"
+  guid: '$interfaceGuid'
   
   ipv4:
     addr: "$($localIP):0"  # Port 0 = random port

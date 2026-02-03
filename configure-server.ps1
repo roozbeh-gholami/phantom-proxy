@@ -172,7 +172,7 @@ listen:
 
 # Network interface settings
 network:
-  guid: "$interfaceGuid"
+  guid: '$interfaceGuid'
   
   ipv4:
     addr: "$($serverIP):$listenPort"
