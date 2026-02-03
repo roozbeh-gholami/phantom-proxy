@@ -97,7 +97,7 @@ function Install-Npcap {
     Write-Warning "Npcap is not installed. Npcap is required for phantom-proxy to function."
     Write-Host ""
     
-    $response = Read-Host "Do you want to automatically install Npcap now? (Y/N)"
+    $response = Read-Host "Do you want to download and launch the Npcap installer now? (Y/N)"
     if ($response -ne "Y" -and $response -ne "y") {
         Write-Host ""
         Write-Host "Please download and install Npcap manually from: https://npcap.com/#download" -ForegroundColor Cyan
@@ -111,27 +111,38 @@ function Install-Npcap {
     
     try {
         Invoke-WebRequest -Uri $npcapUrl -OutFile $npcapInstaller -UseBasicParsing
-        Write-Info "Installing Npcap (this may take a minute)..."
+        Write-Info "Launching Npcap installer..."
+        Write-Host ""
+        Write-Host "Please complete the Npcap installation wizard." -ForegroundColor Yellow
+        Write-Host "Recommended settings:" -ForegroundColor Cyan
+        Write-Host "  - Install Npcap in WinPcap API-compatible mode: YES" -ForegroundColor Cyan
+        Write-Host "  - Support loopback traffic: YES" -ForegroundColor Cyan
+        Write-Host ""
         
-        # Install with silent mode, WinPcap compatibility mode enabled
-        $installArgs = "/S /winpcap_mode=yes /loopback_support=yes /dlt_null=no /admin_only=no /dot11_support=no /vlan_support=no /ndis6_support=yes"
-        Start-Process -FilePath $npcapInstaller -ArgumentList $installArgs -Wait -NoNewWindow
+        # Launch installer and wait for it to complete
+        Start-Process -FilePath $npcapInstaller -Wait
         
-        # Wait a bit for driver installation
-        Start-Sleep -Seconds 3
+        Write-Host ""
+        Write-Info "Npcap installer completed. Verifying installation..."
+        Start-Sleep -Seconds 2
         
         # Verify installation
         if (Test-NpcapInstalled) {
             Write-Info "Npcap installed successfully"
             Remove-Item $npcapInstaller -Force -ErrorAction SilentlyContinue
         } else {
-            Write-Warning "Npcap installation completed but verification failed."
-            Write-Host "You may need to restart your computer for changes to take effect." -ForegroundColor Yellow
+            Write-Warning "Npcap installation verification failed."
+            Write-Host "If you completed the installation, you may need to restart your computer." -ForegroundColor Yellow
+            Write-Host ""
+            $continueResponse = Read-Host "Continue anyway? (Y/N)"
+            if ($continueResponse -ne "Y" -and $continueResponse -ne "y") {
+                exit 1
+            }
         }
     }
     catch {
         $errMsg = $_.Exception.Message
-        Write-Host 'Failed to install Npcap automatically: ' -NoNewline -ForegroundColor Red
+        Write-Host 'Failed to download Npcap installer: ' -NoNewline -ForegroundColor Red
         Write-Host $errMsg -ForegroundColor Red
         Write-Host ""
         Write-Host "Please install Npcap manually from: https://npcap.com/#download" -ForegroundColor Cyan
