@@ -170,21 +170,30 @@ function Install-Binary {
         [string]$Arch
     )
     
-    $binaryName = "phantom-proxy_windows_$Arch.exe"
-    $downloadUrl = "https://github.com/$GithubRepo/releases/download/$Version/$binaryName"
+    $archiveName = "phantom-proxy-windows-$Arch-$Version.zip"
+    $downloadUrl = "https://github.com/$GithubRepo/releases/download/$Version/$archiveName"
     
     Write-Info "Downloading phantom-proxy from $downloadUrl..."
     
-    $tempFile = "$env:TEMP\phantom-proxy.exe"
+    $tempZip = "$env:TEMP\phantom-proxy.zip"
+    $tempExtract = "$env:TEMP\phantom-proxy-extract"
     
     try {
-        Invoke-WebRequest -Uri $downloadUrl -OutFile $tempFile
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $tempZip
     } catch {
         $errMsg = $_.Exception.Message
         Write-Host 'Failed to download binary: ' -NoNewline -ForegroundColor Red
         Write-Host $errMsg -ForegroundColor Red
         exit 1
     }
+    
+    Write-Info "Extracting archive..."
+    
+    # Extract zip file
+    if (Test-Path $tempExtract) {
+        Remove-Item -Path $tempExtract -Recurse -Force
+    }
+    Expand-Archive -Path $tempZip -DestinationPath $tempExtract -Force
     
     Write-Info "Installing binary to $InstallDir\phantom-proxy.exe..."
     
@@ -193,8 +202,18 @@ function Install-Binary {
         New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
     }
     
-    # Move binary
-    Move-Item -Path $tempFile -Destination "$InstallDir\phantom-proxy.exe" -Force
+    # Find and move the exe (it should be in the extracted folder)
+    $exePath = Get-ChildItem -Path $tempExtract -Filter "phantom-proxy_windows_$Arch.exe" -Recurse | Select-Object -First 1
+    if ($exePath) {
+        Move-Item -Path $exePath.FullName -Destination "$InstallDir\phantom-proxy.exe" -Force
+    } else {
+        Write-Error "Could not find phantom-proxy executable in the archive"
+        exit 1
+    }
+    
+    # Cleanup
+    Remove-Item -Path $tempZip -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path $tempExtract -Recurse -Force -ErrorAction SilentlyContinue
     
     Write-Info "Binary installed successfully"
 }
