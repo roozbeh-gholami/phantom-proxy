@@ -76,7 +76,13 @@ Write-Step "Step 1: Network Interface"
 $adapters = Get-NetworkAdapters
 $adapters | Format-Table -AutoSize Name, InterfaceDescription, MacAddress
 
-$adapterName = Read-Host "Enter adapter name (e.g., Ethernet, Wi-Fi)"
+$defaultAdapter = $adapters | Select-Object -First 1
+$adapterPrompt = "Enter adapter name [" + $defaultAdapter.Name + "]"
+$adapterName = Read-Host $adapterPrompt
+if ([string]::IsNullOrWhiteSpace($adapterName)) {
+    $adapterName = $defaultAdapter.Name
+}
+
 $selectedAdapter = $adapters | Where-Object { $_.Name -eq $adapterName }
 
 if (-not $selectedAdapter) {
@@ -130,11 +136,14 @@ else {
 
 # Step 4: Server Address
 Write-Step "Step 4: Server Configuration"
-$serverAddr = Read-Host "Enter phantom-proxy server address (IP:PORT, e.g., 10.0.0.100:9999)"
+$serverAddr = Read-Host "Enter phantom-proxy server address (IP:PORT) [10.0.0.100:9999]"
+if ([string]::IsNullOrWhiteSpace($serverAddr)) {
+    $serverAddr = "10.0.0.100:9999"
+}
 
 # Step 5: SOCKS5 Configuration
 Write-Step "Step 5: SOCKS5 Proxy Configuration"
-$socks5Listen = Read-Host "SOCKS5 listen address (default: 127.0.0.1:1080)"
+$socks5Listen = Read-Host "SOCKS5 listen address [127.0.0.1:1080]"
 if ([string]::IsNullOrWhiteSpace($socks5Listen)) {
     $socks5Listen = "127.0.0.1:1080"
 }

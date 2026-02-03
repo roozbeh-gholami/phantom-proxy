@@ -68,7 +68,13 @@ Write-Step "Step 1: Network Interface"
 $adapters = Get-NetworkAdapters
 $adapters | Format-Table -AutoSize Name, InterfaceDescription, MacAddress
 
-$adapterName = Read-Host "Enter adapter name (e.g., Ethernet)"
+$defaultAdapter = $adapters | Select-Object -First 1
+$adapterPrompt = "Enter adapter name [" + $defaultAdapter.Name + "]"
+$adapterName = Read-Host $adapterPrompt
+if ([string]::IsNullOrWhiteSpace($adapterName)) {
+    $adapterName = $defaultAdapter.Name
+}
+
 $selectedAdapter = $adapters | Where-Object { $_.Name -eq $adapterName }
 
 if (-not $selectedAdapter) {
@@ -97,7 +103,10 @@ else {
 
 # Step 3: Listen Port
 Write-Step "Step 3: Listen Port"
-$listenPort = Read-Host "Enter listen port (e.g., 9999)"
+$listenPort = Read-Host "Enter listen port [9999]"
+if ([string]::IsNullOrWhiteSpace($listenPort)) {
+    $listenPort = "9999"
+}
 
 if ([string]::IsNullOrWhiteSpace($listenPort)) {
     Write-Host "Error: Listen port is required" -ForegroundColor Red
