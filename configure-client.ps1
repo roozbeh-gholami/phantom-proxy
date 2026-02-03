@@ -210,7 +210,9 @@ transport:
     key: "$secretKey"
 "@
 
-$configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
+# Save without BOM
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($ConfigFile, $configContent, $utf8NoBom)
 
 Write-Host ""
 Write-Host "=============================================================" -ForegroundColor Green
