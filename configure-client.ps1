@@ -1,4 +1,4 @@
-# phantom-proxy Client Configuration Script for Windows
+﻿# phantom-proxy Client Configuration Script for Windows
 # Interactive script to generate client configuration
 
 param(
@@ -10,15 +10,15 @@ $ErrorActionPreference = "Stop"
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Blue
+    Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Blue
     Write-Host $Message -ForegroundColor Green
-    Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Blue
+    Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Blue
 }
 
 function Write-Step {
     param([string]$Message)
     Write-Host ""
-    Write-Host "▶ $Message" -ForegroundColor Blue
+    Write-Host "â–¶ $Message" -ForegroundColor Blue
 }
 
 function Write-Info {
@@ -146,7 +146,7 @@ $genSecret = Read-Host "Generate new secret key? (Y/n)"
 if ($genSecret -ne "n" -and $genSecret -ne "N") {
     $secretKey = Generate-SecretKey
     Write-Info "Generated secret key: $secretKey"
-    Write-Host "⚠️  Save this key! You'll need it on the server." -ForegroundColor Yellow
+    Write-Host "âš ï¸  Save this key! You'll need it on the server." -ForegroundColor Yellow
 }
 else {
     $secretKey = Read-Host "Enter secret key"
@@ -204,9 +204,9 @@ transport:
 $configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
 
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
-Write-Host "Client configuration completed successfully! ✓" -ForegroundColor Green
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
+Write-Host "Client configuration completed successfully! âœ“" -ForegroundColor Green
+Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
 Write-Host ""
 Write-Host "Configuration saved to: $ConfigFile"
 Write-Host ""
@@ -230,5 +230,5 @@ Write-Host "6. Test the connection:"
 Write-Host "   curl https://httpbin.org/ip --proxy socks5h://$socks5Listen"
 Write-Host ""
 Write-Host "Documentation: https://github.com/roozbeh-gholami/phantom-proxy" -ForegroundColor Cyan
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
 Write-Host ""
