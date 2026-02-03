@@ -87,7 +87,7 @@ func (c *Conf) validate() error {
 		allErrors = append(allErrors, c.Listen.validate()...)
 	} else {
 		allErrors = append(allErrors, c.Server.validate()...)
-		if c.Server.Addr.IP.To4() == nil && c.Network.IPv6.Addr == nil {
+		if c.Server.Addr != nil && c.Server.Addr.IP.To4() == nil && c.Network.IPv6.Addr == nil {
 			allErrors = append(allErrors, fmt.Errorf("server address is IPv6, but the IPv6 interface is not configured"))
 		}
 		if c.Transport.Conn > 1 && c.Network.Port != 0 {
