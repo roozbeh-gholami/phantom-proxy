@@ -138,7 +138,8 @@ function Install-Binary {
     try {
         Invoke-WebRequest -Uri $downloadUrl -OutFile $tempFile
     } catch {
-        Write-Host "Failed to download binary: $($_.Exception.Message)" -ForegroundColor Red
+        $errMsg = $_.Exception.Message
+        Write-Host "Failed to download binary: $errMsg" -ForegroundColor Red
         exit 1
     }
     
@@ -189,7 +190,8 @@ function Install-Configs {
         
         Write-Info "Example configurations installed to $ConfigDir"
     } catch {
-        Write-Host "Failed to download example configurations: $($_.Exception.Message)" -ForegroundColor Yellow
+        $errMsg = $_.Exception.Message
+        Write-Host "Failed to download example configurations: $errMsg" -ForegroundColor Yellow
     }
 }
 
@@ -266,6 +268,7 @@ function Main {
 try {
     Main
 } catch {
-    Write-Host "Installation failed: $($_.Exception.Message)" -ForegroundColor Red
+    $errMsg = $_.Exception.Message
+    Write-Host "Installation failed: $errMsg" -ForegroundColor Red
     exit 1
 }
