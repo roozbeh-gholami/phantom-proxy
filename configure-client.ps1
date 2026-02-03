@@ -10,15 +10,15 @@ $ErrorActionPreference = "Stop"
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host "=============================================================" -ForegroundColor Blue
+    Write-Host "=============================================================" -ForegroundColor Green
     Write-Host $Message -ForegroundColor Green
-    Write-Host "=============================================================" -ForegroundColor Blue
+    Write-Host "=============================================================" -ForegroundColor Green
 }
 
 function Write-Step {
     param([string]$Message)
     Write-Host ""
-    Write-Host "► $Message" -ForegroundColor Blue
+    Write-Host "► $Message" -ForegroundColor Green
 }
 
 function Write-Info {
