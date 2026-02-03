@@ -186,9 +186,9 @@ transport:
 $configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
 
 Write-Host ""
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
-Write-Host "Server configuration completed successfully! âœ“" -ForegroundColor Green
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
+Write-Host "Server configuration completed successfully! ✓" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "Configuration saved to: $ConfigFile"
 Write-Host ""
@@ -200,7 +200,7 @@ Write-Host "netsh advfirewall firewall add rule name=`"phantom-proxy`" dir=in ac
 Write-Host ""
 Write-Host "Next steps:"
 Write-Host ""
-Write-Host "1. Configure Windows Firewall (command above) âš ï¸" -ForegroundColor Yellow
+Write-Host "1. Configure Windows Firewall (command above) ⚠️" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "2. Review the configuration:"
 Write-Host "   cat $ConfigFile"
@@ -212,5 +212,5 @@ Write-Host "4. Check if server is listening:"
 Write-Host "   netstat -an | Select-String $listenPort"
 Write-Host ""
 Write-Host "Documentation: https://github.com/roozbeh-gholami/phantom-proxy" -ForegroundColor Cyan
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
 Write-Host ""

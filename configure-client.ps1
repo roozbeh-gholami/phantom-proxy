@@ -204,9 +204,9 @@ transport:
 $configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
 
 Write-Host ""
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
-Write-Host "Client configuration completed successfully! âœ“" -ForegroundColor Green
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
+Write-Host "Client configuration completed successfully! ✓" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "Configuration saved to: $ConfigFile"
 Write-Host ""
@@ -230,5 +230,5 @@ Write-Host "6. Test the connection:"
 Write-Host "   curl https://httpbin.org/ip --proxy socks5h://$socks5Listen"
 Write-Host ""
 Write-Host "Documentation: https://github.com/roozbeh-gholami/phantom-proxy" -ForegroundColor Cyan
-Write-Host "â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”" -ForegroundColor Green
+Write-Host "=============================================================" -ForegroundColor Green
 Write-Host ""
