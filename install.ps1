@@ -139,7 +139,7 @@ function Install-Binary {
         Invoke-WebRequest -Uri $downloadUrl -OutFile $tempFile
     }
     catch {
-        Write-Error "Failed to download binary: $_"
+        Write-Error "Failed to download binary: $($_.Exception.Message)"
         exit 1
     }
     
@@ -191,7 +191,7 @@ function Install-Configs {
         Write-Info "Example configurations installed to $ConfigDir"
     }
     catch {
-        Write-Warning "Failed to download example configurations: $_"
+        Write-Warning "Failed to download example configurations: $($_.Exception.Message)"
     }
 }
 
@@ -269,6 +269,6 @@ try {
     Main
 }
 catch {
-    Write-Error "Installation failed: $_"
+    Write-Error "Installation failed: $($_.Exception.Message)"
     exit 1
 }
