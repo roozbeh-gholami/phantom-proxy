@@ -96,16 +96,47 @@ function Install-Npcap {
     
     Write-Warning "Npcap is not installed. Npcap is required for phantom-proxy to function."
     Write-Host ""
-    Write-Host "Please download and install Npcap from: https://npcap.com/#download" -ForegroundColor Cyan
-    Write-Host "After installing Npcap, run this script again." -ForegroundColor Cyan
-    Write-Host ""
     
-    $response = Read-Host "Do you want to open the Npcap download page now? (Y/N)"
-    if ($response -eq "Y" -or $response -eq "y") {
-        Start-Process "https://npcap.com/#download"
+    $response = Read-Host "Do you want to automatically install Npcap now? (Y/N)"
+    if ($response -ne "Y" -and $response -ne "y") {
+        Write-Host ""
+        Write-Host "Please download and install Npcap manually from: https://npcap.com/#download" -ForegroundColor Cyan
+        Write-Host "After installing Npcap, run this script again." -ForegroundColor Cyan
+        exit 1
     }
     
-    exit 1
+    Write-Info "Downloading Npcap installer..."
+    $npcapUrl = "https://npcap.com/dist/npcap-1.79.exe"
+    $npcapInstaller = "$env:TEMP\npcap-installer.exe"
+    
+    try {
+        Invoke-WebRequest -Uri $npcapUrl -OutFile $npcapInstaller -UseBasicParsing
+        Write-Info "Installing Npcap (this may take a minute)..."
+        
+        # Install with silent mode, WinPcap compatibility mode enabled
+        $installArgs = "/S /winpcap_mode=yes /loopback_support=yes /dlt_null=no /admin_only=no /dot11_support=no /vlan_support=no /ndis6_support=yes"
+        Start-Process -FilePath $npcapInstaller -ArgumentList $installArgs -Wait -NoNewWindow
+        
+        # Wait a bit for driver installation
+        Start-Sleep -Seconds 3
+        
+        # Verify installation
+        if (Test-NpcapInstalled) {
+            Write-Info "Npcap installed successfully"
+            Remove-Item $npcapInstaller -Force -ErrorAction SilentlyContinue
+        } else {
+            Write-Warning "Npcap installation completed but verification failed."
+            Write-Host "You may need to restart your computer for changes to take effect." -ForegroundColor Yellow
+        }
+    }
+    catch {
+        $errMsg = $_.Exception.Message
+        Write-Host 'Failed to install Npcap automatically: ' -NoNewline -ForegroundColor Red
+        Write-Host $errMsg -ForegroundColor Red
+        Write-Host ""
+        Write-Host "Please install Npcap manually from: https://npcap.com/#download" -ForegroundColor Cyan
+        exit 1
+    }
 }
 
 function Get-SystemArchitecture {
