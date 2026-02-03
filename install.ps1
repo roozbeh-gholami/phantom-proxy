@@ -269,6 +269,6 @@ try {
     Main
 } catch {
     $errMsg = $_.Exception.Message
-    Write-Host "Installation failed: $errMsg" -ForegroundColor Red
+    Write-Host "Installation failed: $errMsg"
     exit 1
 }
