@@ -221,7 +221,7 @@ function Show-PostInstallInstructions {
     Write-Host ""
     Write-Host "3. Find your network interface GUID (if manual):"
     Write-Host "   Get-NetAdapter | Select-Object Name, InterfaceGuid"
-    Write-Host "   # Use format: \Device\NPF_{GUID} in config"
+    Write-Host "   # Use format: \\Device\\NPF_{GUID} in config"
     Write-Host ""
     Write-Host "4. Generate a secret key:"
     Write-Host "   phantom-proxy secret"
