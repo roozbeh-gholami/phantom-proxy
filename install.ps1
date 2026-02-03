@@ -225,10 +225,10 @@ function Install-Configs {
     Write-Info "Downloading example configuration files..."
     
     try {
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/$GithubRepo/master/example/client.yaml.example" `
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/$GithubRepo/main/example/client.yaml.example" `
             -OutFile "$ConfigDir\client.yaml.example"
         
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/$GithubRepo/master/example/server.yaml.example" `
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/$GithubRepo/main/example/server.yaml.example" `
             -OutFile "$ConfigDir\server.yaml.example"
         
         Write-Info "Example configurations installed to $ConfigDir"
@@ -249,10 +249,10 @@ function Show-PostInstallInstructions {
     Write-Host ""
     Write-Host "Option A: Use Interactive Configuration (Recommended):" -ForegroundColor Cyan
     Write-Host "   # Download and run configuration script"
-    Write-Host "   Invoke-WebRequest -Uri `"https://raw.githubusercontent.com/$GithubRepo/master/configure-client.ps1`" -OutFile `"configure-client.ps1`""
+    Write-Host "   Invoke-WebRequest -Uri `"https://raw.githubusercontent.com/$GithubRepo/main/configure-client.ps1`" -OutFile `"configure-client.ps1`""
     Write-Host "   .\configure-client.ps1"
     Write-Host "   # or for server:"
-    Write-Host "   Invoke-WebRequest -Uri `"https://raw.githubusercontent.com/$GithubRepo/master/configure-server.ps1`" -OutFile `"configure-server.ps1`""
+    Write-Host "   Invoke-WebRequest -Uri `"https://raw.githubusercontent.com/$GithubRepo/main/configure-server.ps1`" -OutFile `"configure-server.ps1`""
     Write-Host "   .\configure-server.ps1"
     Write-Host ""
     Write-Host "Option B: Manual Configuration:" -ForegroundColor Cyan
