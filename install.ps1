@@ -199,9 +199,9 @@ function Install-Configs {
 
 function Show-PostInstallInstructions {
     Write-Host ""
-    Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
-    Write-Info "Installation completed successfully! ✓"
-    Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+    Write-Host "=============================================================" -ForegroundColor Green
+    Write-Info "Installation completed successfully!"
+    Write-Host "=============================================================" -ForegroundColor Green
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Cyan
     Write-Host ""
@@ -232,7 +232,7 @@ function Show-PostInstallInstructions {
     Write-Host "   phantom-proxy run -c `"$ConfigDir\config.yaml`""
     Write-Host ""
     Write-Host "Documentation: https://github.com/$GithubRepo" -ForegroundColor Cyan
-    Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+    Write-Host "=============================================================" -ForegroundColor Green
     Write-Host ""
     Write-Host "Note: Close and reopen your terminal to use 'phantom-proxy' command globally." -ForegroundColor Yellow
 }
@@ -240,9 +240,9 @@ function Show-PostInstallInstructions {
 # Main installation process
 function Main {
     Write-Host ""
-    Write-Host "╔═══════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║         phantom-proxy Installation Script for Windows     ║" -ForegroundColor Cyan
-    Write-Host "╚═══════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+    Write-Host "=============================================================" -ForegroundColor Cyan
+    Write-Host "    phantom-proxy Installation Script for Windows" -ForegroundColor Cyan
+    Write-Host "=============================================================" -ForegroundColor Cyan
     Write-Host ""
     
     if (-not (Test-Administrator)) {
