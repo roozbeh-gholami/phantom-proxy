@@ -91,6 +91,48 @@ You will also need the configuration files from the `example/` directory.
 
 #### 2. Configure the Connection
 
+**Option A: Interactive Configuration (Recommended)**
+
+Use the interactive configuration scripts to automatically generate your config file:
+
+**Linux/macOS Client:**
+```bash
+# Download configuration script
+curl -fsSL https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/configure-client.sh -o configure-client.sh
+chmod +x configure-client.sh
+sudo ./configure-client.sh
+```
+
+**Linux/macOS Server:**
+```bash
+# Download configuration script
+curl -fsSL https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/configure-server.sh -o configure-server.sh
+chmod +x configure-server.sh
+sudo ./configure-server.sh
+```
+
+**Windows Client:**
+```powershell
+# Download and run configuration script
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/configure-client.ps1" -OutFile "configure-client.ps1"
+.\configure-client.ps1
+```
+
+**Windows Server:**
+```powershell
+# Download and run configuration script
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/roozbeh-gholami/phantom-proxy/master/configure-server.ps1" -OutFile "configure-server.ps1"
+.\configure-server.ps1
+```
+
+These scripts will:
+- Auto-detect network interfaces and IP addresses
+- Find gateway MAC addresses automatically
+- Generate secure encryption keys
+- Create a ready-to-use `config.yaml` file
+
+**Option B: Manual Configuration**
+
 phantom-proxy uses a unified configuration approach with role-based settings. Copy and modify either:
 
 - `example/client.yaml.example` - Client configuration example
@@ -104,7 +146,7 @@ You must correctly set the interfaces, IP addresses, MAC addresses, and ports.
 > - **Transport Security**: KCP requires identical keys on client/server.
 > - **Configuration**: See "Critical Configuration Points" section below for detailed security requirements
 
-#### Finding Your Network Details
+#### Finding Your Network Details (Manual Configuration)
 
 You'll need to find your network interface name, local IP, and the MAC address of your network's gateway (router).
 
