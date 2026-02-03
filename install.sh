@@ -128,12 +128,15 @@ get_latest_version() {
 
 # Download and install binary
 install_binary() {
-    BINARY_NAME="phantom-proxy_${OS}_${ARCH}"
-    DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${VERSION}/${BINARY_NAME}"
+    ARCHIVE_NAME="phantom-proxy-${OS}-${ARCH}-${VERSION}.tar.gz"
+    DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${VERSION}/${ARCHIVE_NAME}"
     
     print_info "Downloading phantom-proxy from $DOWNLOAD_URL..."
     
-    TMP_FILE="/tmp/phantom-proxy_${OS}_${ARCH}"
+    TMP_DIR="/tmp/phantom-proxy-install-$$"
+    TMP_FILE="$TMP_DIR/${ARCHIVE_NAME}"
+    
+    mkdir -p "$TMP_DIR"
     
     if command -v curl &> /dev/null; then
         curl -L -o "$TMP_FILE" "$DOWNLOAD_URL"
@@ -146,12 +149,29 @@ install_binary() {
     
     if [ ! -f "$TMP_FILE" ]; then
         print_error "Failed to download binary"
+        rm -rf "$TMP_DIR"
         exit 1
     fi
     
+    print_info "Extracting archive..."
+    tar -xzf "$TMP_FILE" -C "$TMP_DIR"
+    
     print_info "Installing binary to $INSTALL_DIR/phantom-proxy..."
-    chmod +x "$TMP_FILE"
-    mv "$TMP_FILE" "$INSTALL_DIR/phantom-proxy"
+    
+    # Find the binary in extracted files
+    BINARY_FILE=$(find "$TMP_DIR" -name "phantom-proxy_${OS}_${ARCH}" -type f)
+    
+    if [ -z "$BINARY_FILE" ]; then
+        print_error "Could not find phantom-proxy binary in archive"
+        rm -rf "$TMP_DIR"
+        exit 1
+    fi
+    
+    chmod +x "$BINARY_FILE"
+    mv "$BINARY_FILE" "$INSTALL_DIR/phantom-proxy"
+    
+    # Cleanup
+    rm -rf "$TMP_DIR"
     
     print_info "Binary installed successfully"
 }
@@ -166,14 +186,14 @@ install_configs() {
     # Download client example
     if command -v curl &> /dev/null; then
         curl -L -o "$CONFIG_DIR/client.yaml.example" \
-            "https://raw.githubusercontent.com/${GITHUB_REPO}/master/example/client.yaml.example"
+            "https://raw.githubusercontent.com/${GITHUB_REPO}/main/example/client.yaml.example"
         curl -L -o "$CONFIG_DIR/server.yaml.example" \
-            "https://raw.githubusercontent.com/${GITHUB_REPO}/master/example/server.yaml.example"
+            "https://raw.githubusercontent.com/${GITHUB_REPO}/main/example/server.yaml.example"
     elif command -v wget &> /dev/null; then
         wget -O "$CONFIG_DIR/client.yaml.example" \
-            "https://raw.githubusercontent.com/${GITHUB_REPO}/master/example/client.yaml.example"
+            "https://raw.githubusercontent.com/${GITHUB_REPO}/main/example/client.yaml.example"
         wget -O "$CONFIG_DIR/server.yaml.example" \
-            "https://raw.githubusercontent.com/${GITHUB_REPO}/master/example/server.yaml.example"
+            "https://raw.githubusercontent.com/${GITHUB_REPO}/main/example/server.yaml.example"
     fi
     
     print_info "Example configurations installed to $CONFIG_DIR"
@@ -190,11 +210,11 @@ print_instructions() {
     echo ""
     echo "Option A: Use Interactive Configuration (Recommended):"
     echo "   # Download and run configuration script"
-    echo "   curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/master/configure-client.sh -o configure-client.sh"
+    echo "   curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/configure-client.sh -o configure-client.sh"
     echo "   chmod +x configure-client.sh"
     echo "   sudo ./configure-client.sh"
     echo "   # or for server:"
-    echo "   curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/master/configure-server.sh -o configure-server.sh"
+    echo "   curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/configure-server.sh -o configure-server.sh"
     echo "   chmod +x configure-server.sh"
     echo "   sudo ./configure-server.sh"
     echo ""
