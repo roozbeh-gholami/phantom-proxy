@@ -172,7 +172,7 @@ listen:
 
 # Network interface settings
 network:
-  interface: '$($selectedAdapter.Name)'
+  interface: "$($selectedAdapter.Name)"
   guid: '$interfaceGuid'
   
   ipv4:
