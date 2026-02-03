@@ -203,15 +203,32 @@ transport:
 
 $configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
 
-Write-Header "✓ Configuration Complete!"
-
 Write-Host ""
-Write-Info "Configuration saved to: $ConfigFile"
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+Write-Host "Client configuration completed successfully! ✓" -ForegroundColor Green
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+Write-Host ""
+Write-Host "Configuration saved to: $ConfigFile"
 Write-Host ""
 Write-Host "Next steps:"
-Write-Host "  1. Review the configuration: cat $ConfigFile"
-Write-Host "  2. Make sure the server uses the SAME secret key"
-Write-Host "  3. Run phantom-proxy: phantom-proxy run -c $ConfigFile"
 Write-Host ""
-Write-Host "Secret Key: $secretKey" -ForegroundColor Yellow
+Write-Host "1. Review the configuration:"
+Write-Host "   cat $ConfigFile"
+Write-Host ""
+Write-Host "2. Share this secret key with your server:" -ForegroundColor Yellow
+Write-Host "   $secretKey" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "3. Configure the server with the SAME secret key"
+Write-Host ""
+Write-Host "4. Start the server first:"
+Write-Host "   phantom-proxy run -c C:\ProgramData\phantom-proxy\config.yaml"
+Write-Host ""
+Write-Host "5. Then start the client (as Administrator):"
+Write-Host "   phantom-proxy run -c $ConfigFile"
+Write-Host ""
+Write-Host "6. Test the connection:"
+Write-Host "   curl https://httpbin.org/ip --proxy socks5h://$socks5Listen"
+Write-Host ""
+Write-Host "Documentation: https://github.com/roozbeh-gholami/phantom-proxy" -ForegroundColor Cyan
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
 Write-Host ""

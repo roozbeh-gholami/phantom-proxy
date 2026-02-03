@@ -185,18 +185,32 @@ transport:
 
 $configContent | Out-File -FilePath $ConfigFile -Encoding UTF8
 
-Write-Header "✓ Configuration Complete!"
-
 Write-Host ""
-Write-Info "Configuration saved to: $ConfigFile"
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
+Write-Host "Server configuration completed successfully! ✓" -ForegroundColor Green
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
 Write-Host ""
-Write-Warning2 "IMPORTANT: Windows Firewall Configuration"
+Write-Host "Configuration saved to: $ConfigFile"
 Write-Host ""
-Write-Host "You need to allow the port in Windows Firewall:"
-Write-Host "  netsh advfirewall firewall add rule name=`"phantom-proxy`" dir=in action=allow protocol=TCP localport=$listenPort" -ForegroundColor Yellow
+Write-Host "CRITICAL: Configure Windows Firewall!" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "Run this command as Administrator:" -ForegroundColor White
+Write-Host ""
+Write-Host "netsh advfirewall firewall add rule name=`"phantom-proxy`" dir=in action=allow protocol=TCP localport=$listenPort" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "Next steps:"
-Write-Host "  1. Configure Windows Firewall (command above)"
-Write-Host "  2. Review the configuration: cat $ConfigFile"
-Write-Host "  3. Run phantom-proxy: phantom-proxy run -c $ConfigFile"
+Write-Host ""
+Write-Host "1. Configure Windows Firewall (command above) ⚠️" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "2. Review the configuration:"
+Write-Host "   cat $ConfigFile"
+Write-Host ""
+Write-Host "3. Run phantom-proxy (as Administrator):"
+Write-Host "   phantom-proxy run -c $ConfigFile"
+Write-Host ""
+Write-Host "4. Check if server is listening:"
+Write-Host "   netstat -an | Select-String $listenPort"
+Write-Host ""
+Write-Host "Documentation: https://github.com/roozbeh-gholami/phantom-proxy" -ForegroundColor Cyan
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
 Write-Host ""
