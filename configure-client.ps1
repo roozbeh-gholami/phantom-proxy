@@ -192,10 +192,6 @@ network:
   ipv4:
     addr: "$($localIP):0"  # Port 0 = random port
     router_mac: "$gatewayMacAddr"
-  
-  tcp:
-    local_flag: ["PA"]
-    remote_flag: ["PA"]
 
 # Server connection settings
 server:
@@ -206,7 +202,6 @@ transport:
   protocol: "kcp"
   
   kcp:
-    mode: "fast"
     block: "aes"
     key: "$secretKey"
 "@

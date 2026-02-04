@@ -178,17 +178,12 @@ network:
   ipv4:
     addr: "$($serverIP):$listenPort"
     router_mac: "$gatewayMacAddr"
-  
-  tcp:
-    local_flag: ["PA"]
 
 # Transport protocol configuration
 transport:
   protocol: "kcp"
-  conn: 1
   
   kcp:
-    mode: "fast"
     block: "aes"
     key: "$secretKey"
 "@
