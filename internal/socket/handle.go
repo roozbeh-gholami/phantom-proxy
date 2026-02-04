@@ -5,7 +5,7 @@ import (
 	"phantom-proxy/internal/conf"
 	"runtime"
 
-	"github.com/gopacket/gopacket/pcap"
+	"github.com/google/gopacket/pcap"
 )
 
 func newHandle(cfg *conf.Network) (*pcap.Handle, error) {

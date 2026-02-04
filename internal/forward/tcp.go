@@ -32,13 +32,14 @@ func (f *Forward) listenTCP(ctx context.Context) error {
 			}
 		}
 
-		f.wg.Go(func() {
+		f.wg.Go(func() error {
 			defer conn.Close()
 			if err := f.handleTCPConn(ctx, conn); err != nil {
 				flog.Errorf("TCP connection %s -> %s closed with error: %v", conn.RemoteAddr(), f.targetAddr, err)
 			} else {
 				flog.Debugf("TCP connection %s -> %s closed", conn.RemoteAddr(), f.targetAddr)
 			}
+			return nil
 		})
 	}
 }

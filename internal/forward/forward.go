@@ -5,21 +5,23 @@ import (
 	"fmt"
 	"phantom-proxy/internal/client"
 	"phantom-proxy/internal/flog"
-	"sync"
+	"golang.org/x/sync/errgroup"
 )
 
 type Forward struct {
 	client     *client.Client
 	listenAddr string
 	targetAddr string
-	wg         sync.WaitGroup
+	wg         *errgroup.Group
 }
 
 func New(client *client.Client, listenAddr, targetAddr string) (*Forward, error) {
+	wg := &errgroup.Group{}
 	return &Forward{
 		client:     client,
 		listenAddr: listenAddr,
 		targetAddr: targetAddr,
+		wg:         wg,
 	}, nil
 }
 
@@ -37,17 +39,19 @@ func (f *Forward) Start(ctx context.Context, protocol string) error {
 }
 
 func (f *Forward) startTCP(ctx context.Context) error {
-	f.wg.Go(func() {
+	f.wg.Go(func() error {
 		if err := f.listenTCP(ctx); err != nil {
 			flog.Debugf("TCP forwarder stopped with: %v", err)
 		}
+		return nil
 	})
 	return nil
 }
 
 func (f *Forward) startUDP(ctx context.Context) error {
-	f.wg.Go(func() {
+	f.wg.Go(func() error {
 		f.listenUDP(ctx)
+		return nil
 	})
 	return nil
 }

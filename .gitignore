@@ -7,9 +7,11 @@
 *.dll
 *.so
 *.dylib
-
+phantom-proxy
+*.yaml
 # Test binary, built with `go test -c`
 *.test
+*.log
 
 # Code coverage profiles and other test artifacts
 *.out

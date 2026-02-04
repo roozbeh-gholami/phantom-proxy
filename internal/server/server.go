@@ -10,19 +10,21 @@ import (
 	"phantom-proxy/internal/socket"
 	"phantom-proxy/internal/tnet"
 	"phantom-proxy/internal/tnet/kcp"
-	"sync"
+	"golang.org/x/sync/errgroup"
 	"syscall"
 )
 
 type Server struct {
 	cfg   *conf.Conf
 	pConn *socket.PacketConn
-	wg    sync.WaitGroup
+	wg    *errgroup.Group
 }
 
 func New(cfg *conf.Conf) (*Server, error) {
+	wg := &errgroup.Group{}
 	s := &Server{
 		cfg: cfg,
+		wg:  wg,
 	}
 
 	return s, nil
@@ -52,8 +54,9 @@ func (s *Server) Start() error {
 	defer listener.Close()
 	flog.Infof("Server started - listening for packets on :%d", s.cfg.Listen.Addr.Port)
 
-	s.wg.Go(func() {
+	s.wg.Go(func() error {
 		s.listen(ctx, listener)
+		return nil
 	})
 
 	s.wg.Wait()
@@ -79,9 +82,10 @@ func (s *Server) listen(ctx context.Context, listener tnet.Listener) {
 		}
 		flog.Infof("accepted new connection from %s (local: %s)", conn.RemoteAddr(), conn.LocalAddr())
 
-		s.wg.Go(func() {
+		s.wg.Go(func() error {
 			defer conn.Close()
 			s.handleConn(ctx, conn)
+			return nil
 		})
 	}
 }
